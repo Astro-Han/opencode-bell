@@ -1,0 +1,29 @@
+{
+  "name": "opencode-bell",
+  "version": "0.1.0",
+  "description": "OpenCode plugin: privacy-friendly terminal bell notifications",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.js",
+  "exports": "./index.js",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Astro-Han/opencode-bell.git"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "terminal",
+    "bell",
+    "notifications",
+    "privacy"
+  ],
+  "scripts": {
+    "test": "node -e \"import('./index.js')\""
+  }
+}
