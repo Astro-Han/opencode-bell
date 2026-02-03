@@ -15,17 +15,21 @@ export const OpencodeBellPlugin = async () => {
 
   return {
     event: async ({ event }) => {
-      if (event.type === "permission.asked") {
-        ring(`permission:${event.properties.sessionID}`)
+      if (event?.type === "permission.asked") {
+        const sessionId = event?.properties?.sessionID
+        ring(sessionId ? `permission:${sessionId}` : "permission")
       }
-      if (event.type === "question.asked") {
-        ring(`question:${event.properties.sessionID}`)
+      if (event?.type === "question.asked") {
+        const sessionId = event?.properties?.sessionID
+        ring(sessionId ? `question:${sessionId}` : "question")
       }
-      if (event.type === "session.idle") {
-        ring(`idle:${event.properties.sessionID}`)
+      if (event?.type === "session.idle") {
+        const sessionId = event?.properties?.sessionID
+        ring(sessionId ? `idle:${sessionId}` : "idle")
       }
-      if (event.type === "session.error") {
-        ring(`error:${event.properties.sessionID}`)
+      if (event?.type === "session.error") {
+        const sessionId = event?.properties?.sessionID
+        ring(sessionId ? `error:${sessionId}` : "error")
       }
     }
   }

@@ -24,6 +24,6 @@
     "privacy"
   ],
   "scripts": {
-    "test": "node -e \"import('./index.js')\""
+    "test": "node --test test/plugin.test.js"
   }
 }
