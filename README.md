@@ -11,7 +11,7 @@ Privacy-friendly by design: no system notifications, no message content, no exte
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-bell@0.1.0"]
+  "plugin": ["opencode-bell@0.1.1"]
 }
 ```
 
@@ -31,6 +31,12 @@ The plugin triggers a terminal bell for these events:
 - `question.asked`
 - `session.idle`
 - `session.error`
+
+Behavior details:
+
+- Rings only when `process.stdout.isTTY` is true.
+- Debounces repeated rings for the same key within 1200ms.
+- Uses per-session keys when `event.properties.sessionID` is present.
 
 ## Verify
 
