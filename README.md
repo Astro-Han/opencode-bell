@@ -11,7 +11,7 @@ Privacy-friendly by design: no system notifications, no message content, no exte
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-bell@0.1.0"]
+  "plugin": ["opencode-bell@0.1.1"]
 }
 ```
 

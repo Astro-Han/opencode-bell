@@ -14,3 +14,5 @@ jobs:
           node-version: 20
       - name: Smoke test
         run: node -e "import('./index.js')"
+      - name: Unit tests
+        run: npm test
