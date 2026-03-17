@@ -1,45 +1,68 @@
 # opencode-bell
 
-OpenCode plugin that triggers a terminal bell on key events.
+<!-- TODO: replace with actual recording -->
+<p align="center"><img src="./docs/demo.gif" alt="opencode-bell demo" width="600"></p>
 
-Privacy-friendly by design: no system notifications, no message content, no external commands, no network calls. It only writes the BEL control character (`\x07`) to stdout.
+Never miss an OpenCode prompt again.
 
-## Install (recommended: npm)
+- Zero dependencies — single-file plugin
+- Privacy-friendly — no message content, no external commands, no network calls
+- Configurable — choose which events trigger the bell
+- Smart debounce — avoids bell spam for the same event type per session
 
-1. Add the plugin to `~/.config/opencode/opencode.json`:
+## Install
+
+### npm (recommended)
+
+Add the plugin to `~/.config/opencode/opencode.json`:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-bell@0.1.1"]
+  "plugin": ["opencode-bell@0.2.0"]
 }
 ```
 
-2. Restart OpenCode CLI.
+Restart OpenCode. It will auto-install the package and cache it under `~/.cache/opencode/node_modules/`.
 
-OpenCode will auto-install the package and cache it under `~/.cache/opencode/node_modules/`.
-
-## Install (local file)
+### Local file
 
 Copy `index.js` into `~/.config/opencode/plugins/` and restart OpenCode.
 
-## What it does
+## Configuration
 
-The plugin triggers a terminal bell for these events:
+Two environment variables control behavior:
 
-- `permission.asked`
-- `question.asked`
-- `session.idle`
-- `session.error`
+| Variable | Default | Description |
+|---|---|---|
+| `OPENCODE_BELL_EVENTS` | `permission.asked,question.asked,session.idle,session.error` | Comma-separated list of events that trigger the bell |
+| `OPENCODE_BELL_DEBOUNCE` | `1200` | Minimum ms between repeated bells for the same event type and session. Must be >= 1; 0 or negative falls back to default |
 
-## Verify
+Example — bell only on permission requests, with a 5-second debounce:
 
-- Trigger a permission request (e.g., any tool that requires approval).
-- Or wait for a session to complete (`session.idle`).
+```sh
+export OPENCODE_BELL_EVENTS="permission.asked"
+export OPENCODE_BELL_DEBOUNCE="5000"
+```
 
-If you do not hear/see anything, check Terminal.app settings:
+## Supported Events
 
-- Terminal.app -> Settings -> Profiles -> Bell
+| Event | Fires when |
+|---|---|
+| `permission.asked` | OpenCode needs approval to run a tool |
+| `question.asked` | OpenCode asks the user a question |
+| `session.idle` | A session completes and is waiting for input |
+| `session.error` | A session encounters an error |
+
+## How it works
+
+The plugin writes the BEL character (`\x07`) to stdout. Your terminal emulator interprets it — typically as an audio beep, a visual flash, or a dock badge, depending on your terminal settings.
+
+## Troubleshooting
+
+No sound or flash? Check your terminal bell settings:
+
+- **Terminal.app**: Settings -> Profiles -> Bell
 
 ## Uninstall
 
